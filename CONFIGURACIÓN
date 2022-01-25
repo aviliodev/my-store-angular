@@ -1,0 +1,7 @@
+1. Crear el proyecto: ng new my-store
+2. Instalar extensión en VSCODE, que se llama EditorConfig (necesaria para que funcione el archivo .editorconfig )
+3. Instalar extensión en VSCODE, que se llama Angular Language Service
+4. Crear el archivo .nvmrc, este archivo sirve para indicar cuál es la versión de node con la que corre nuestro sistema.
+    Por ejemplo, este proyecto corre con v16.11.1 de Node, asi que lo colocamos ahi.
+    Con el Node Version Manager se puede cambiar a la versión de node que necesitamos, utilizando este archivo.
+5.  

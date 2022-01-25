@@ -1,0 +1,4 @@
+<img width="200" (load) = "imgLoaded()" (error) ="imgError()" [src] = "img" *ngIf="img; else elseImg">
+<ng-template #elseImg>
+  <img src='https://picsum.photos/200' alt="">
+</ng-template>
