@@ -1,4 +1,11 @@
-<p><input type="text" [(ngModel)] = "imgParent"></p>
-<app-img (loaded)="onLoaded($event)" [img]="imgParent"></app-img> <!--"loaded" es la variable de salida tipo emitter, definida en el componente hijo. -->
-                                                                  <!-- $event se debe colocar para recibir eventos (en este caso nuestro evento imgLoaded del componente hijo) -->
-<app-product [product] = "product" *ngFor="let product of products"></app-product>
+
+<app-nav></app-nav>
+<app-products></app-products>
+
+<!-- <p><input type="text" [(ngModel)] = "imgParent"></p>
+<button (click)="toggleImg()" >Toggle Img</button>
+<p>{{showImg}}</p>
+<app-img *ngIf="showImg" (loaded)="onLoaded($event)" [img]="imgParent"></app-img>  -->
+<!--"loaded" es la variable de salida tipo emitter, definida en el componente hijo. -->
+<!-- $event se debe colocar para recibir eventos (en este caso nuestro evento imgLoaded del componente hijo) -->
+
