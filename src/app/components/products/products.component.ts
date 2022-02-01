@@ -8,6 +8,8 @@ import {Product} from "../../models/product.model"
 })
 export class ProductsComponent implements OnInit {
 
+  total = 0;
+
   products: Product[] = [
     {
       id: '1',
@@ -47,9 +49,16 @@ export class ProductsComponent implements OnInit {
     },
   ];
 
+  myShoppingCart: Product[] = [];
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onAddToShoppingCart(elproducto: Product) {
+    this.myShoppingCart.push(elproducto);
+    this.total = this.myShoppingCart.reduce((sum, item) => sum + item.price, 0); /*esta función o método para sumar con reduce el precio de los items, es propia de javascript y manejo de arreglos*/
   }
 
 }
