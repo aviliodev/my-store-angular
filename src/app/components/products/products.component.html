@@ -1,8 +1,9 @@
 <p>
   Cantidad de productos: {{myShoppingCart.length}}
 </p>
+<p>Total carrito: ${{ total }}</p>
 <div class="products--grid">
   <app-product [product]="product" *ngFor="let product of products" (addedProduct)="onAddToShoppingCart($event)"></app-product>
   <!--La propiedad [product] es la misma que se define en product.component.ts como variable de entrada @Input() product -->
 </div>
-<p>Total carrito: ${{ total }}</p>
+

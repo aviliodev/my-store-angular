@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Product} from "../../models/product.model"
+import {Product} from "../../models/product.model";
+import {StoreService} from "../../services/store.service";
+import {ProductosService} from "../../services/productos.service";
 
 @Component({
   selector: 'app-products',
@@ -10,55 +12,28 @@ export class ProductsComponent implements OnInit {
 
   total = 0;
 
-  products: Product[] = [
-    {
-      id: '1',
-      name: 'EL mejor juguete',
-      price: 565,
-      image: '../assets/images/toy.jpg'
-    },
-    {
-      id: '2',
-      name: 'Bicicleta casi nueva',
-      price: 356,
-      image: '../assets/images/bike.jpg'
-    },
-    {
-      id: '3',
-      name: 'Colleción de albumes',
-      price: 34,
-      image: '../assets/images/album.jpg'
-    },
-    {
-      id: '4',
-      name: 'Mis libros',
-      price: 23,
-      image: '../assets/images/books.jpg'
-    },
-    {
-      id: '5',
-      name: 'Casita michi',
-      price: 125,
-      image: '../assets/images/house.jpg'
-    },
-    {
-      id: '6',
-      name: 'Lentes vintage',
-      price: 82,
-      image: '../assets/images/glasses.jpg'
-    },
-  ];
+  products: Product[] = [];
 
   myShoppingCart: Product[] = [];
 
-  constructor() { }
+   constructor(
+     private storeService : StoreService,
+     private productosService: ProductosService  //patrón de inyección de dependencias, para usar el servicio del Store y de Productos
+    ) {
+        this.myShoppingCart = storeService.getShoppingCart();
+      }
 
   ngOnInit(): void {
+    this.productosService.getProducts().subscribe(data => {
+      this.products = data;
+    }); //se coloca en OnInit porque este llamado de datos a un servicio, es asíncrono.
   }
 
   onAddToShoppingCart(elproducto: Product) {
-    this.myShoppingCart.push(elproducto);
-    this.total = this.myShoppingCart.reduce((sum, item) => sum + item.price, 0); /*esta función o método para sumar con reduce el precio de los items, es propia de javascript y manejo de arreglos*/
+    //this.myShoppingCart.push(elproducto);
+    this.storeService.addProduct(elproducto);
+    //this.total = this.myShoppingCart.reduce((sum, item) => sum + item.price, 0); /*esta función o método para sumar con reduce el precio de los items, es propia de javascript y manejo de arreglos*/
+    this.total = this.storeService.getTotal();
   }
 
 }

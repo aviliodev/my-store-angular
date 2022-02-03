@@ -10,9 +10,11 @@ export class ProductComponent implements OnInit {
   //Debemos mandarle algo por default al Input, si no nos marcará error, pro eso se definen valores por defecto para cada propiedad de Product.
   @Input() product : Product = {
     id: '',
-    name: '',
+    title: '',
     image: '',
-    price: 0
+    price: 0,
+    description: '',
+    category: '',
   }
 
   @Output() addedProduct = new EventEmitter<Product>();
