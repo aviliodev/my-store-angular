@@ -9,12 +9,27 @@ import {ProductosService} from "../../services/productos.service";
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
-
+  date = new Date();
+  cumpleanos = new Date(2021,12,17);
   total = 0;
+  showProductDetail = false;
 
   products: Product[] = [];
-
+  product: Product = {
+    id: '',
+    title: '',
+    images: [],
+    price: 0,
+    description: '',
+    category: {
+      id: '',
+      name: '',
+      typeImg: ''
+    },
+  };
   myShoppingCart: Product[] = [];
+
+
 
    constructor(
      private storeService : StoreService,
@@ -34,6 +49,17 @@ export class ProductsComponent implements OnInit {
     this.storeService.addProduct(elproducto);
     //this.total = this.myShoppingCart.reduce((sum, item) => sum + item.price, 0); /*esta función o método para sumar con reduce el precio de los items, es propia de javascript y manejo de arreglos*/
     this.total = this.storeService.getTotal();
+  }
+
+  toggleProductDetail(){
+    this.showProductDetail = !this.showProductDetail;
+  }
+
+  onShowDetail(id: string){
+    this.productosService.getProduct(id).subscribe(data => {
+      this.toggleProductDetail();
+      this.product = data;
+    });
   }
 
 }

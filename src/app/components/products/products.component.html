@@ -1,9 +1,26 @@
 <p>
   Cantidad de productos: {{myShoppingCart.length}}
 </p>
-<p>Total carrito: ${{ total }}</p>
+<p>Total carrito: {{ total | currency: 'USD' }}</p>
+<p>Fecha actual: {{ date | date: 'short' }}</p>
+<p>Último cumpleaños fue hace: {{ cumpleanos | timeAgo }}</p>
+<!-- <button (click)="toggleProductDetail()">Abrir detalle</button> -->
 <div class="products--grid">
-  <app-product [product]="product" *ngFor="let product of products" (addedProduct)="onAddToShoppingCart($event)"></app-product>
+  <app-product [product]="product" *ngFor="let product of products" (addedProduct)="onAddToShoppingCart($event)" (showDetail)="onShowDetail($event)"></app-product>
   <!--La propiedad [product] es la misma que se define en product.component.ts como variable de entrada @Input() product -->
 </div>
-
+<div class="product-detail" [class.active]="showProductDetail">
+   <div>
+    <button (click)="toggleProductDetail()">Cerrar</button>
+    <h1>{{product.title}}</h1>
+    <p>{{product.description}}</p>
+    <swiper
+      [slidesPerView]="1"
+      [spaceBetween]="50"
+    >
+      <ng-template swiperSlide *ngFor="let image of product.images">
+        <img [src]="image" alt="">
+      </ng-template>
+    </swiper>
+  </div>
+</div>

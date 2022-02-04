@@ -11,17 +11,24 @@ export class ProductComponent implements OnInit {
   @Input() product : Product = {
     id: '',
     title: '',
-    image: '',
+    images: [],
     price: 0,
     description: '',
-    category: '',
+    category: {
+      id: '',
+      name: '',
+      typeImg: ''
+    },
   }
-
-  @Output() addedProduct = new EventEmitter<Product>();
-
   // Nota: también sería válido lo siguiente:
   //@Input() product! : Product;
   //con el signo de exclamación le decimos a Angular (o Typescript) que la propiedad product si va a existir, que no puede ser nula.
+
+  //Variables Output que se envian al componente padre.
+  @Output() addedProduct = new EventEmitter<Product>();
+  @Output() showDetail = new EventEmitter<string>();
+
+
 
   constructor() { }
 
@@ -30,6 +37,10 @@ export class ProductComponent implements OnInit {
 
   onAddToCart() {
     this.addedProduct.emit(this.product);
+  }
+
+  onShowDetail() {
+    this.showDetail.emit(this.product.id);
   }
 
 }

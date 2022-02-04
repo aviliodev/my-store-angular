@@ -10,6 +10,10 @@ export class ProductosService {
   constructor(private client : HttpClient) { }
 
   getProducts(){
-    return this.client.get<Product[]>('http://fakestoreapi.com/products');
+    return this.client.get<Product[]>('https://young-sands-07814.herokuapp.com/api/products?limit=10&offset=10');
+  }
+
+  getProduct(id: string){
+    return this.client.get<Product>('https://young-sands-07814.herokuapp.com/api/products/' + id);
   }
 }
