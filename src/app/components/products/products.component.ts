@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Product} from "../../models/product.model";
+import {Product, AddProduct} from "../../models/product.model";
 import {StoreService} from "../../services/store.service";
 import {ProductosService} from "../../services/productos.service";
 
@@ -59,6 +59,21 @@ export class ProductsComponent implements OnInit {
     this.productosService.getProduct(id).subscribe(data => {
       this.toggleProductDetail();
       this.product = data;
+    });
+  }
+
+  addNewProduct(){
+    const product : AddProduct = {
+      title: 'Nueo producto',
+      description: 'uan descripción',
+      images: [`https://placeimg.com/640/480/any?random=${Math.random()}`],
+      price: 1000,
+      categoryId: 2
+
+    }
+    this.productosService.createNewProduct(product)
+    .subscribe(data => {
+      console.log('created', data);
     });
   }
 

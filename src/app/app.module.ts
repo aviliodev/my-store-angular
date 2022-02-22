@@ -29,6 +29,7 @@ import { TimeAgoPipe } from './pipes/time-ago.pipe';
     FormsModule,
     HttpClientModule,
     SwiperModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

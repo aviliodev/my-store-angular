@@ -12,3 +12,18 @@ export interface Product {
   description: string;
   category: Category;
 }
+
+/*Se creó una segunda interfaz AddProduct que se usará para los momentos en que se mande a guardar un nuevo
+producto. hereda de la interfaz anterior, pero le decimos que los campos id y category sean
+omitidos. esto se debe a que para crear un nuevo producto, no le mandamos le id, ya que la base
+crea el nuevo id automaticamente. Y no le mandamos una categoria de tipo Category, si no que le
+mandamos el código de la categoria para que se guarde en la base.
+
+CONCLUSIÓN: lo campos que va a pedir la segunda interfaz, son todos los de la anterior menos id
+y category, y adicionalmente pedirá uno más: categoryID */
+
+export interface  AddProduct extends Omit <Product, 'id' | 'category'>{
+  categoryId: number; //solo le mandamos el código de la categoria, por el id lo crea la base.
+}
+
+

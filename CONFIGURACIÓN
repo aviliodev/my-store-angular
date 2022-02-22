@@ -4,4 +4,6 @@
 4. Crear el archivo .nvmrc, este archivo sirve para indicar cuál es la versión de node con la que corre nuestro sistema.
     Por ejemplo, este proyecto corre con v16.11.1 de Node, asi que lo colocamos ahi.
     Con el Node Version Manager se puede cambiar a la versión de node que necesitamos, utilizando este archivo.
-5.  
+5.  para usar los slides de Swiper, instalar con: npm i swiper
+    Agregarlo despues a la sección de modulos (buscar documentación de swiper para ver qué agregar)
+    tambien se importan los estilos de swiper en el asrchivo de styles
