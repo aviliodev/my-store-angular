@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Product, AddProduct} from "../../models/product.model";
+import {Product, AddProduct, UpdateProduct} from "../../models/product.model";
 import {StoreService} from "../../services/store.service";
 import {ProductosService} from "../../services/productos.service";
 
@@ -75,6 +75,24 @@ export class ProductsComponent implements OnInit {
     .subscribe(data => {
       console.log('created', data);
     });
+
+  }
+
+  updateProduct(){
+    const productChanges : UpdateProduct = {
+      title: 'Producto 2',
+      description: 'producto actualizado',
+    }
+
+    let idProdSeleccionado = this.product.id; //this.product.id es el id del producto seleccionado en onShowDetail()
+
+    this.productosService.updateProduct(idProdSeleccionado, productChanges)
+    .subscribe(data => {
+      // console.log('updated',data);
+      const productIndex = this.products.findIndex(item => item.id === this.product.id); //se busca el indice del producto seleccionado en la lista de productos
+      this.products[productIndex] = data; //se actualiza el producto seleccionado dentro de la lista de productos
+      this.product = data; //se actualiza el producto seleccionado
+    })
   }
 
 }

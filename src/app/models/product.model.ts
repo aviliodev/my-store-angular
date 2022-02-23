@@ -26,4 +26,15 @@ export interface  AddProduct extends Omit <Product, 'id' | 'category'>{
   categoryId: number; //solo le mandamos el código de la categoria, por el id lo crea la base.
 }
 
+/* Creamos otra interfaz para cuando hagamos update al producto. Igual que la interfaz para el
+add/insert del producto, no necesitamos el id porque no se va a actualizar, ni el category, porque
+lo que le mandaremos será un id y no la descripción.
+Sin embargo, cuando hacemos update, no siempre vamos a actualizar todos los campos, asi que para no
+mandarlos todos siempre que se haga update, se agrega el "partial", que es lo mismo que decir que
+todo los campos de la interfaz son opcionales.*/
+
+export interface UpdateProduct extends Partial<AddProduct> {
+
+}
+
 
