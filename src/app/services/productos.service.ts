@@ -17,6 +17,13 @@ export class ProductosService {
     return this.client.get<Product>('https://young-sands-07814.herokuapp.com/api/products/' + id);
   }
 
+  getProductsByPage(limit:number, offset: number){
+    // return this.client.get<Product[]>(`https://young-sands-07814.herokuapp.com/api/products?limit=${limit}&offset=${offset}`);
+    return this.client.get<Product[]>('https://young-sands-07814.herokuapp.com/api/products/', {
+      params: {limit,offset}
+    });
+  }
+
   createNewProduct(data: AddProduct) {
     return this.client.post<Product>('https://young-sands-07814.herokuapp.com/api/products', data);
 
@@ -25,5 +32,9 @@ export class ProductosService {
   updateProduct(id: string, data: UpdateProduct) {
     return this.client.put<Product>('https://young-sands-07814.herokuapp.com/api/products/' + id, data);
 
+  }
+
+  deleteProduct(id: string){
+    return this.client.delete<boolean>('https://young-sands-07814.herokuapp.com/api/products/' + id);
   }
 }

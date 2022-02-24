@@ -14,7 +14,11 @@ export class ProductsComponent implements OnInit {
   total = 0;
   showProductDetail = false;
 
+  limit = 10;
+  offset = 0;
+
   products: Product[] = [];
+
   product: Product = {
     id: '',
     title: '',
@@ -27,6 +31,8 @@ export class ProductsComponent implements OnInit {
       typeImg: ''
     },
   };
+
+
   myShoppingCart: Product[] = [];
 
 
@@ -39,8 +45,9 @@ export class ProductsComponent implements OnInit {
       }
 
   ngOnInit(): void {
-    this.productosService.getProducts().subscribe(data => {
+    this.productosService.getProductsByPage(this.limit, this.offset).subscribe(data => {
       this.products = data;
+      this.offset += this.limit; //para indicar el nuevo offset despues de cargar 10 items nuevos
     }); //se coloca en OnInit porque este llamado de datos a un servicio, es asíncrono.
   }
 
@@ -93,6 +100,25 @@ export class ProductsComponent implements OnInit {
       this.products[productIndex] = data; //se actualiza el producto seleccionado dentro de la lista de productos
       this.product = data; //se actualiza el producto seleccionado
     })
+  }
+
+  deleteProduct(){
+    let idProdSeleccionado = this.product.id; //this.product.id es el id del producto seleccionado en onShowDetail()
+    this.productosService.deleteProduct(idProdSeleccionado)
+    .subscribe(() =>{
+      const productIndex = this.products.findIndex(item => item.id === this.product.id); //se busca el indice del producto seleccionado en la lista de productos
+      this.products.splice(productIndex,1);
+      this.showProductDetail = false;
+
+    })
+  }
+
+  loadMore(){
+    this.productosService.getProductsByPage(this.limit, this.offset)
+    .subscribe(data => {
+      this.products = this.products.concat(data); //para añadir la nueva colección de productos a la lista
+      this.offset += this.limit; //para indicar el nuevo offset despues de cargar 10 items nuevos
+    });
   }
 
 }
