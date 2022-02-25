@@ -16,6 +16,7 @@ export class ProductsComponent implements OnInit {
 
   limit = 10;
   offset = 0;
+  statusDetail: 'loading' | 'succes' | 'error' | 'init' = 'init'; //puede tener 4 estados. el estaod inciial es init
 
   products: Product[] = [];
 
@@ -63,9 +64,16 @@ export class ProductsComponent implements OnInit {
   }
 
   onShowDetail(id: string){
-    this.productosService.getProduct(id).subscribe(data => {
-      this.toggleProductDetail();
+    this.statusDetail = 'loading';
+    this.toggleProductDetail();
+    this.productosService.getProduct(id)
+    .subscribe(data => {
+      // this.toggleProductDetail();
       this.product = data;
+      this.statusDetail = 'succes';
+    }, errMsg => {
+      window.alert(errMsg);
+      this.statusDetail = 'error';
     });
   }
 

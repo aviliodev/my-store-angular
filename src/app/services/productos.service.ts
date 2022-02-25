@@ -1,40 +1,75 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpStatusCode} from '@angular/common/http';
 import {Product, AddProduct, UpdateProduct} from '../models/product.model'
+import { environment } from 'src/environments/environment';
+import { catchError, retry, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductosService {
+  //private apiUrl = 'https://young-sands-07814.herokuapp.com/api/products';
+  private apiUrl = `${environment.API_URL}/api/products`;
+  /*Antes se colocaba la URL completa, pero, para evitar posibles problemas con el CORS del backend,
+  Se coloca nada más la porción que va despues del dominio "/api/products".
+
+  Luego, atraves de un proxy (proxy.config.json) se le añade el pedazo que le falta "https://young-sands-07814.herokuapp.com"
+  Para poder utilizar el proxy, se debe activar desde el package.json, en la seccion de scripts, en el start.
+
+  Esto, solo funciona en ambiente de desarrollo. En producción, el backend debe proporcionar permisos
+  para que cualquier dominio o al menos nuestro dominio pueda accesar al servicio.
+
+  ADICIONALMENTE: se agregó la variable ${environment.API_URL}, es una variable de entorno (ver carpeta enviroments) que vendrá
+  vacia en ambiente de desarrollo, pero en producción, donde no usaremos proxy, devolverá la porción
+  de la URL que falta, para que esté completa. para que el sistema sepa que está en ambiente de producción,
+  se debe compilar con el comando "ng build --prod" */
 
   constructor(private client : HttpClient) { }
 
   getProducts(){
-    return this.client.get<Product[]>('https://young-sands-07814.herokuapp.com/api/products?limit=10&offset=10');
+    return this.client.get<Product[]>(`${this.apiUrl}?limit=10&offset=10`);
   }
 
   getProduct(id: string){
-    return this.client.get<Product>('https://young-sands-07814.herokuapp.com/api/products/' + id);
+    return this.client.get<Product>(`${this.apiUrl}/${id}`)
+    .pipe(
+      catchError((error: HttpErrorResponse)=>{
+        if (error.status === HttpStatusCode.Conflict){
+          return throwError('algo falló en el server');
+        }
+        if (error.status === HttpStatusCode.NotFound){
+          return throwError('elproducto no existe');
+        }
+
+        if (error.status === HttpStatusCode.Unauthorized){
+          return throwError('no estas autorizado');
+        }
+        return throwError('pasó algo malo');
+      })
+    );
   }
 
   getProductsByPage(limit:number, offset: number){
     // return this.client.get<Product[]>(`https://young-sands-07814.herokuapp.com/api/products?limit=${limit}&offset=${offset}`);
-    return this.client.get<Product[]>('https://young-sands-07814.herokuapp.com/api/products/', {
+    return this.client.get<Product[]>(`${this.apiUrl}`, {
       params: {limit,offset}
-    });
+    })
+    .pipe(
+       retry(3) //retry se usa para volver a intentar hacer la consulta 3 veces, en caso de que la conexión esté fallando
+    );
   }
 
   createNewProduct(data: AddProduct) {
-    return this.client.post<Product>('https://young-sands-07814.herokuapp.com/api/products', data);
+    return this.client.post<Product>(`${this.apiUrl}`, data);
 
   }
 
   updateProduct(id: string, data: UpdateProduct) {
-    return this.client.put<Product>('https://young-sands-07814.herokuapp.com/api/products/' + id, data);
+    return this.client.put<Product>(`${this.apiUrl}/${id}`, data);
 
   }
 
   deleteProduct(id: string){
-    return this.client.delete<boolean>('https://young-sands-07814.herokuapp.com/api/products/' + id);
+    return this.client.delete<boolean>(`${this.apiUrl}/${id}`);
   }
 }

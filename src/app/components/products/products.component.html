@@ -5,12 +5,14 @@
 <p>Fecha actual: {{ date | date: 'short' }}</p>
 <p>Último cumpleaños fue hace: {{ cumpleanos | timeAgo }}</p>
 <button (click)="addNewProduct()">Create</button>
+<button (click)="onShowDetail('6332')">Error handling button</button>
 <div class="products--grid">
   <app-product [product]="product" *ngFor="let product of products" (addedProduct)="onAddToShoppingCart($event)" (showDetail)="onShowDetail($event)"></app-product>
   <button (click)="loadMore()">Load More</button>
   <!--La propiedad [product] es la misma que se define en product.component.ts como variable de entrada @Input() product -->
 </div>
 <div class="product-detail" [class.active]="showProductDetail">
+  {{statusDetail}}
    <div>
     <button (click)="toggleProductDetail()">Cerrar</button>
     <h1>{{product.title}}</h1>
