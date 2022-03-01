@@ -68,7 +68,6 @@ export class ProductsComponent implements OnInit {
     this.toggleProductDetail();
     this.productosService.getProduct(id)
     .subscribe(data => {
-      // this.toggleProductDetail();
       this.product = data;
       this.statusDetail = 'succes';
     }, errMsg => {

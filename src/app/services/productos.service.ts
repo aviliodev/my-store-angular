@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpStatusCode} from '@angular/common/http';
 import {Product, AddProduct, UpdateProduct} from '../models/product.model'
 import { environment } from 'src/environments/environment';
-import { catchError, retry, throwError } from 'rxjs';
+import { catchError, map, retry, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -51,11 +51,15 @@ export class ProductosService {
 
   getProductsByPage(limit:number, offset: number){
     // return this.client.get<Product[]>(`https://young-sands-07814.herokuapp.com/api/products?limit=${limit}&offset=${offset}`);
-    return this.client.get<Product[]>(`${this.apiUrl}`, {
-      params: {limit,offset}
-    })
+    return this.client.get<Product[]>(`${this.apiUrl}`, {params: {limit,offset}})
     .pipe(
-       retry(3) //retry se usa para volver a intentar hacer la consulta 3 veces, en caso de que la conexión esté fallando
+       retry(3), //retry se usa para volver a intentar hacer la consulta 3 veces, en caso de que la conexión esté fallando
+       map(products => products.map(item => { //este map es propio de rxjs, sirve para evaluar cada item de la respuesta y modificarlo. En esta caso se está agregando valor al campo taxes, el cual viene vacio porque le backend no lo envia, si no que se llena aqui en el servicio.
+         return {
+           ...item,
+           taxes: .12 * item.price
+         }
+       }))
     );
   }
 

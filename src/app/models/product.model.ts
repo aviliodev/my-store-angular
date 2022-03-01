@@ -11,6 +11,7 @@ export interface Product {
   images: string[];
   description: string;
   category: Category;
+  taxes?: number; //el campo taxes no lo manda el backend, este se llena desde el frontend
 }
 
 /*Se creó una segunda interfaz AddProduct que se usará para los momentos en que se mande a guardar un nuevo
