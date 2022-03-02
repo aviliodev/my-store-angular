@@ -13,6 +13,7 @@ import {AuthService} from './services/auth.service';
 export class AppComponent {
   imgParent = '';
   showImg = true;
+  token = '';
 
 constructor(
   private userService: UsersService,
@@ -36,12 +37,7 @@ constructor(
     })
   }
 
-  login(){
-    this.authService.login('user1@correo.com', '12345')
-    .subscribe(respuesta => {
-      console.log(respuesta);
-    })
-  }
+
 
 
 }
