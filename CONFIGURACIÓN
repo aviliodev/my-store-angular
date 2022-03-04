@@ -7,3 +7,6 @@
 5.  para usar los slides de Swiper, instalar con: npm i swiper
     Agregarlo despues a la sección de modulos (buscar documentación de swiper para ver qué agregar)
     tambien se importan los estilos de swiper en el asrchivo de styles
+6.  Para habilitar la descarga de archivos:
+  - Instalar file-saver => npm i file-saver
+  - instalar tipado del file-saver => npm install @types/file-saver --save-dev

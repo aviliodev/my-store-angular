@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpStatusCode} from '@angular/common/htt
 import {Product, AddProduct, UpdateProduct} from '../models/product.model'
 import { environment } from 'src/environments/environment';
 import { catchError, map, retry, throwError } from 'rxjs';
+import { checkTime } from '../interceptors/time.interceptor';
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +52,7 @@ export class ProductosService {
 
   getProductsByPage(limit:number, offset: number){
     // return this.client.get<Product[]>(`https://young-sands-07814.herokuapp.com/api/products?limit=${limit}&offset=${offset}`);
-    return this.client.get<Product[]>(`${this.apiUrl}`, {params: {limit,offset}})
+    return this.client.get<Product[]>(`${this.apiUrl}`, {params: {limit,offset}, context: checkTime()}) //esto de context: checktime, no es obligatorio, se le agregó para añadirle un contexto, definido en el interceptor time para evaluar el tiempo de respuesta; con el context, solo se evaluará el tiempo en getProductsByPage()
     .pipe(
        retry(3), //retry se usa para volver a intentar hacer la consulta 3 veces, en caso de que la conexión esté fallando
        map(products => products.map(item => { //este map es propio de rxjs, sirve para evaluar cada item de la respuesta y modificarlo. En esta caso se está agregando valor al campo taxes, el cual viene vacio porque le backend no lo envia, si no que se llena aqui en el servicio.

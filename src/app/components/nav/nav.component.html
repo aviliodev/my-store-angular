@@ -33,13 +33,14 @@
     </nav>
     <div class="info">
       <div class="account">
-        <button *ngIf="!token; else elseBlock" (click)="login()">Login</button>
+        <button *ngIf="!profile; else elseBlock" (click)="login()">Login</button>
         <ng-template #elseBlock>{{profile?.email}}</ng-template>
       </div>
-      <div>
+      <div class="cart">
         <a href="">
           <img src="./assets/svg/icon_shopping_cart.svg" alt="logo">
         </a>
+        <span class="counter">{{ counter }}</span>
       </div>
     </div>
   </div>
