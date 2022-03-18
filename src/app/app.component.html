@@ -1,6 +1,7 @@
 
 <app-nav></app-nav>
-<button (click)="createUser()">Create User</button>
+
+<!-- <button (click)="createUser()">Create User</button>
 <p>
   <a href="../assets/files/texto.txt" download> Download File</a>
 </p>
@@ -10,12 +11,11 @@
 <p>
   <input type="file" (change)="onUpload($event)">
   <img *ngIf="imgRta" [src]="imgRta" >
-</p>
+</p> -->
 
+<router-outlet></router-outlet>
 
-
-
-<app-products></app-products>
+<!-- <app-products></app-products> -->
 
 <!-- <p><input type="text" [(ngModel)] = "imgParent"></p>
 <button (click)="toggleImg()" >Toggle Img</button>

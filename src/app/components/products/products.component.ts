@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {Product, AddProduct, UpdateProduct} from "../../models/product.model";
 import {StoreService} from "../../services/store.service";
 import {ProductosService} from "../../services/productos.service";
@@ -14,11 +14,12 @@ export class ProductsComponent implements OnInit {
   total = 0;
   showProductDetail = false;
 
-  limit = 10;
-  offset = 0;
+  // limit = 10;
+  // offset = 0;
   statusDetail: 'loading' | 'succes' | 'error' | 'init' = 'init'; //puede tener 4 estados. el estaod inciial es init
 
-  products: Product[] = [];
+  @Input() products: Product[] = []; //pormedio de input se reciben los productos desde el home
+  @Output() loadMore = new EventEmitter();
 
   product: Product = {
     id: '',
@@ -46,10 +47,10 @@ export class ProductsComponent implements OnInit {
       }
 
   ngOnInit(): void {
-    this.productosService.getProductsByPage(this.limit, this.offset).subscribe(data => {
+    /*this.productosService.getProductsByPage(this.limit, this.offset).subscribe(data => {
       this.products = data;
       this.offset += this.limit; //para indicar el nuevo offset despues de cargar 10 items nuevos
-    }); //se coloca en OnInit porque este llamado de datos a un servicio, es asíncrono.
+    }); //se coloca en OnInit porque este llamado de datos a un servicio, es asíncrono.*/
   }
 
   onAddToShoppingCart(elproducto: Product) {
@@ -120,12 +121,8 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-  loadMore(){
-    this.productosService.getProductsByPage(this.limit, this.offset)
-    .subscribe(data => {
-      this.products = this.products.concat(data); //para añadir la nueva colección de productos a la lista
-      this.offset += this.limit; //para indicar el nuevo offset despues de cargar 10 items nuevos
-    });
+  onLoadMore(){
+    this.loadMore.emit();
   }
 
 }
