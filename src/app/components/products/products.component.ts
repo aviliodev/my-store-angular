@@ -51,6 +51,8 @@ export class ProductsComponent implements OnInit {
       this.products = data;
       this.offset += this.limit; //para indicar el nuevo offset despues de cargar 10 items nuevos
     }); //se coloca en OnInit porque este llamado de datos a un servicio, es asíncrono.*/
+
+    //Se decidió que la llamada a los productos se haga desde el home y no desde este componente. Ahora la data se manda como parametro de entrada.
   }
 
   onAddToShoppingCart(elproducto: Product) {
