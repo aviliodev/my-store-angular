@@ -1,0 +1,64 @@
+//Verifica versión de Node: 
+node -v
+
+//Verifica versión de npm: 
+npm -v
+
+//Instala el CLI de Angular (DE FORMA GLOBAL): 
+npm i -g @angular/cli
+
+Se tuvo un problema al instalar, tiraba un error de self certificate. Asi que se hizo lo siguiente:
+-limpiar cache del npm: npm cache clean --force
+-luego se seteó este parámetro: npm config set strict-ssl false
+-luego se registró el npm : npm config set registry http://registry.npmjs.org/
+-Y por último se instaló el cli de Angular: npm i -g @angular/cli
+
+//Verifica tu instalación: 
+ng version
+nota: Si lanzamos el comando ng version desde la carpeta del proyecto podremos obtener mayor detalle de las tecnolog[ias utilizadas.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+//Crea tu primer proyecto: 
+ng new my-project
+
+//Ejecuta el servidor de desarrollo: 
+ng serve (Dentro de la carpeta de tu proyecto)
+
+//Lanzar servidor de desarrollo y que abra el navegador automáticamente: 
+ng serve -o
+
+//Lanzar el servidor en un puerto especifico: 
+ng serve -o --port=3500
+
+//correr el proyecto con un proxy definido en package.json
+npm run "nombre proxy"
+
+::::::::::::::::::::::::::COMPONENTES:::::::::::::::::::::::::::::::::::::::::::::::::
+
+// Comando para crear un componente completo
+ng generate component name-component
+
+// Comando abreviado para crear un componente completo
+ng g c carpeta/nombre-componente
+
+// Crear componente sin estilos
+ng g c componentes/name-component -is
+
+// Crear componente sin archivos de testing
+ng g c componentes/img --skip-tests
+
+:::::::::::::::::::::::::::SERVICIOS:::::::::::::::::::::::::::::::::::::::::::::::
+
+// Comando abreviado para crear un servicio
+ng g s carpeta/nombre-servicio
+
+:::::::::::::::::::::::::::PIPES:::::::::::::::::::::::::::::::::::::::::::::::
+
+// Comando abreviado para crear un pipe
+ng g p carpeta/nombre-pipe
+
+::::::::::::::::::::::::::::INTERCEPTORES:::::::::::::::::::::::::::::::::::::::::
+ng g interceptor carpeta/nombre-interceptor
+ng g interceptor carpeta/nombre-interceptor --flat para que no cree una subcarpeta
+

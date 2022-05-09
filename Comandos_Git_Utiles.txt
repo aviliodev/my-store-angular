@@ -1,0 +1,35 @@
+Iniciar GIT en carpeta del proyecto:
+git init
+
+Para cambiar de rama:
+git checkout "nombre rama"
+
+Crear rama y posicionarse en ella:
+git checkout -b "nombre rama"
+git checkout -b "main"
+git checkout -b feature/router-redux
+
+Añadir repositorio remoto:
+git remote add origin https://github.com/aviliodev/React_Movie_Page.git
+
+Cambiar le repositorio existente:
+git remote set-url origin https://github.com/aviliodev/webpersonal.git
+
+Para ver repositorio remoto añadido:
+git remote -v
+
+Despues de configurar el origen,
+Para traer los archivos del reporsitorio remoto (PULL)
+git pull origin "nombre rama"
+git pull origin "main"
+
+Para añadir todo los archivos al contro de versiones:
+git add .
+
+Para hacer commit a todos los cambios:
+git commit -m "Descripción de este commit"
+
+Para enviar archivos al repositorio remoto (PUSH)
+git push origin "nombre rama"
+git push origin "main"
+
