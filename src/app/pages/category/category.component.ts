@@ -49,4 +49,16 @@ export class CategoryComponent implements OnInit {
       this.products = data;
     });
   }
+
+  onLoadMore() {
+    if (this.categoryID) {
+      this.productosService
+        .getProductsByCategory(this.limit, this.offset,this.categoryID)
+        .subscribe((data) => {
+          this.products = this.products.concat(data);
+          this.offset += this.limit;
+        });
+    }
+  }
+
 }
