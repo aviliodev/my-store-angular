@@ -18,8 +18,14 @@ export class ProductsComponent implements OnInit {
   // offset = 0;
   statusDetail: 'loading' | 'succes' | 'error' | 'init' = 'init'; //puede tener 4 estados. el estaod inciial es init
 
-  @Input() products: Product[] = []; //pormedio de input se reciben los productos desde el home
+  @Input() products: Product[] = []; //por medio de input se reciben los productos desde el home
   @Output() loadMore = new EventEmitter();
+
+  @Input() set productID(id:string | null){ //se coloca el "set" para que productID sea una variable que esté constantemenet escuchando si cambia de valor el id recibido.
+    if(id){
+      this.onShowDetail(id);
+    }
+  }
 
   product: Product = {
     id: '',
@@ -68,7 +74,10 @@ export class ProductsComponent implements OnInit {
 
   onShowDetail(id: string){
     this.statusDetail = 'loading';
-    this.toggleProductDetail();
+    // this.toggleProductDetail();
+    if (!this.showProductDetail){
+      this.showProductDetail = true;
+    }
     this.productosService.getProduct(id)
     .subscribe(data => {
       this.product = data;

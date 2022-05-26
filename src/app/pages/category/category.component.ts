@@ -13,6 +13,7 @@ export class CategoryComponent implements OnInit {
 
   categoryID: string | null = null;
   products : Product[] = [];
+  productID: string | null = null;
   limit = 10;
   offset = 0;
 
@@ -48,6 +49,11 @@ export class CategoryComponent implements OnInit {
     .subscribe(data => {
       this.products = data;
     });
+
+    this.route.queryParamMap.subscribe(param => {
+      this.productID = param.get('product');
+    })
+
   }
 
   onLoadMore() {

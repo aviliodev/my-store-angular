@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import {ProductosService} from "../../services/productos.service";
 import {Product} from "../../models/product.model";
 
@@ -11,11 +12,13 @@ import {Product} from "../../models/product.model";
 export class HomeComponent implements OnInit {
 
   products : Product[] = [];
+  productID : string | null = null;
   limit = 10;
   offset = 0;
 
   constructor(
-    private productosService: ProductosService
+    private productosService: ProductosService,
+    private route : ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -23,6 +26,11 @@ export class HomeComponent implements OnInit {
       this.products = data;
       this.offset += this.limit; //para indicar el nuevo offset despues de cargar 10 items nuevos
     }); //se coloca en OnInit porque este llamado de datos a un servicio, es asíncrono.
+
+    this.route.queryParamMap.subscribe(param => {
+      this.productID = param.get('product');
+    })
+
   }
 
   onLoadMore(){
