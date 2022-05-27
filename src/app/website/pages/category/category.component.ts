@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'; //sirve para leer parametro que viene escrito en la ruta. ejemplo: /category/id
 import { switchMap } from 'rxjs';
 import { ProductosService } from 'src/app/services/productos.service';
-import {Product} from "../../models/product.model";
+import {Product} from "../../../models/product.model";
 
 @Component({
   selector: 'app-category',
-  templateUrl: './category.component.html',
+  // templateUrl: './category.component.html',
+  templateUrl: 'category.component.html',
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {

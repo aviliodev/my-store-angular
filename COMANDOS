@@ -1,10 +1,10 @@
-//Verifica versión de Node: 
+//Verifica versión de Node:
 node -v
 
-//Verifica versión de npm: 
+//Verifica versión de npm:
 npm -v
 
-//Instala el CLI de Angular (DE FORMA GLOBAL): 
+//Instala el CLI de Angular (DE FORMA GLOBAL):
 npm i -g @angular/cli
 
 Se tuvo un problema al instalar, tiraba un error de self certificate. Asi que se hizo lo siguiente:
@@ -13,22 +13,22 @@ Se tuvo un problema al instalar, tiraba un error de self certificate. Asi que se
 -luego se registró el npm : npm config set registry http://registry.npmjs.org/
 -Y por último se instaló el cli de Angular: npm i -g @angular/cli
 
-//Verifica tu instalación: 
+//Verifica tu instalación:
 ng version
 nota: Si lanzamos el comando ng version desde la carpeta del proyecto podremos obtener mayor detalle de las tecnolog[ias utilizadas.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-//Crea tu primer proyecto: 
+//Crea tu primer proyecto:
 ng new my-project
 
-//Ejecuta el servidor de desarrollo: 
+//Ejecuta el servidor de desarrollo:
 ng serve (Dentro de la carpeta de tu proyecto)
 
-//Lanzar servidor de desarrollo y que abra el navegador automáticamente: 
+//Lanzar servidor de desarrollo y que abra el navegador automáticamente:
 ng serve -o
 
-//Lanzar el servidor en un puerto especifico: 
+//Lanzar el servidor en un puerto especifico:
 ng serve -o --port=3500
 
 //correr el proyecto con un proxy definido en package.json
@@ -61,4 +61,8 @@ ng g p carpeta/nombre-pipe
 ::::::::::::::::::::::::::::INTERCEPTORES:::::::::::::::::::::::::::::::::::::::::
 ng g interceptor carpeta/nombre-interceptor
 ng g interceptor carpeta/nombre-interceptor --flat para que no cree una subcarpeta
+
+::::::::::::::::::::::::::::::: MODULOS :::::::::::::::::::::::::::::::::::::::::
+ng g m nombre_modulo
+ng g m nombre_modulo --routing para que tenga routing
 

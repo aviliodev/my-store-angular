@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {Product, AddProduct, UpdateProduct} from "../../models/product.model";
-import {StoreService} from "../../services/store.service";
-import {ProductosService} from "../../services/productos.service";
+import {Product, AddProduct, UpdateProduct} from "../../../models/product.model";
+import {StoreService} from "../../../services/store.service";
+import {ProductosService} from "../../../services/productos.service";
 
 @Component({
   selector: 'app-products',
