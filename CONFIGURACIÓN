@@ -10,3 +10,14 @@
 6.  Para habilitar la descarga de archivos:
   - Instalar file-saver => npm i file-saver
   - instalar tipado del file-saver => npm install @types/file-saver --save-dev
+
+7. Para cuando se publique la aplicación en netlify, y al hacer refresh en una página no de error de 404 not found:
+    -se crea un archivo netlify.toml en la raiz, con el siguiente contenido:
+    [build]
+        publish = "dist/my-store"   **nota: my-store en este caso es el nombre de la carpeta donde se guarda nuestra publicación de ng build
+        command = "ng build"
+    [[redirects]]
+        from = "/*"
+        to = "/index.html"
+        status = 200
+    
