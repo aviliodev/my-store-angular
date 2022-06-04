@@ -10,3 +10,5 @@
 6.  Para habilitar la descarga de archivos:
   - Instalar file-saver => npm i file-saver
   - instalar tipado del file-saver => npm install @types/file-saver --save-dev
+7. Para instalar libreria de QuickLink
+  - ejecutar: npm i ngx-quicklink --save
